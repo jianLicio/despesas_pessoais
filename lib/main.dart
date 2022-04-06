@@ -1,11 +1,7 @@
-// ignore_for_file: avoid_print
-
 import 'package:despesas_pessoais/components/Transacao_usuario.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const GastosApp());
-}
+void main() => runApp(const GastosApp());
 
 class GastosApp extends StatelessWidget {
   const GastosApp({Key? key}) : super(key: key);
@@ -27,8 +23,8 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Despesas Pessoais'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           SizedBox(
             width: double.infinity,

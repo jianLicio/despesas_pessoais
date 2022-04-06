@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:despesas_pessoais/components/transacao_form.dart';
 import 'package:despesas_pessoais/components/transacao_lista.dart';
 import 'package:flutter/material.dart';
@@ -25,14 +27,57 @@ class _TransacaoUsuarioState extends State<TransacaoUsuario> {
       valor: 210.56,
       data: DateTime.now(),
     ),
+    Transacao(
+      id: 't3',
+      titulo: 'Conta de água',
+      valor: 18.75,
+      data: DateTime.now(),
+    ),
+    Transacao(
+      id: 't4',
+      titulo: 'Conta de Internet',
+      valor: 310.75,
+      data: DateTime.now(),
+    ),
+    Transacao(
+      id: 't5',
+      titulo: 'shoppe',
+      valor: 10.75,
+      data: DateTime.now(),
+    ),
+    Transacao(
+      id: 't6',
+      titulo: 'Amazon Prime',
+      valor: 10.75,
+      data: DateTime.now(),
+    ),
+    Transacao(
+      id: 't7',
+      titulo: 'Netflix',
+      valor: 42,
+      data: DateTime.now(),
+    ),
   ];
+
+  _addTransacao(String titulo, double valor) {
+    final novaTransacao = Transacao(
+      id: Random().nextDouble().toString(),
+      data: DateTime.now(),
+      titulo: titulo,
+      valor: valor,
+    );
+
+    setState(() {
+      _transacao.add(novaTransacao);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TransacaoLista(transacao: _transacao),
-        TransacaoForm(),
+        TransacaoForm(onSubmit: _addTransacao),
       ],
     );
   }

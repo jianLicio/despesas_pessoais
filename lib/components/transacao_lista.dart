@@ -9,9 +9,12 @@ class TransacaoLista extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ...transacao.map((tr) {
+    return SizedBox(
+      height: 400,
+      child: ListView.builder(
+        itemCount: transacao.length,
+        itemBuilder: (ctx, index) {
+          final tr = transacao[index];
           return Card(
             child: Row(
               children: [
@@ -57,8 +60,8 @@ class TransacaoLista extends StatelessWidget {
               ],
             ),
           );
-        }).toList(),
-      ],
+        },
+      ),
     );
   }
 }
