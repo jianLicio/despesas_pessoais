@@ -117,15 +117,15 @@ class MyHomePage extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
-                  const TextField(
+                  TextField(
                     controller: tituloController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Titulo',
                     ),
                   ),
-                  const TextField(
+                  TextField(
                     controller: valorController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Valor(R\$)',
                     ),
                   ),
@@ -136,8 +136,8 @@ class MyHomePage extends StatelessWidget {
                     ),
                     child: const Text('Nova Transação'),
                     onPressed: () {
-                      debugPrint(valor);
-                      print(titulo);
+                      debugPrint(tituloController.text);
+                      print(valorController.text);
                     },
                   ),
                 ],
