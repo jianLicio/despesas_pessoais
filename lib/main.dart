@@ -24,7 +24,6 @@ class MyHomePage extends StatelessWidget {
         title: const Text('Despesas Pessoais'),
       ),
       body: ListView(
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           SizedBox(
             width: double.infinity,
