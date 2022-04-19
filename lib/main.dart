@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:despesas_pessoais/components/transacao_form.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'components/transacao_lista.dart';
 import 'models/transacao.dart';
@@ -13,8 +14,28 @@ class GastosApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(),
+    final ThemeData tema = ThemeData();
+    return MaterialApp(
+      home: const MyHomePage(),
+      theme: tema.copyWith(
+        textTheme: GoogleFonts.pacificoTextTheme(
+          Theme.of(context).textTheme,
+        ),
+        colorScheme: tema.colorScheme.copyWith(
+          primary: Colors.purple,
+          secondary: Colors.amber,
+        ),
+        appBarTheme: AppBarTheme(
+          // titleTextStyle: const TextStyle(
+          //   fontSize: 20,
+          //   fontWeight: FontWeight.bold,
+          // ),
+          toolbarTextStyle: GoogleFonts.pacificoTextTheme(
+            Theme.of(context).textTheme,
+          ).bodyText2,
+          titleTextStyle: GoogleFonts.pacificoTextTheme().headline6,
+        ),
+      ),
     );
   }
 }
@@ -53,6 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transacao.add(novaTransacao);
     });
+
+    Navigator.of(context).pop();
   }
 
   _opentransactionFormModal(BuildContext context) {
@@ -67,7 +90,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Despesas Pessoais'),
+        title: const Text(
+          'Despesas Pessoais',
+          style: TextStyle(fontSize: 25, color: Colors.white),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
