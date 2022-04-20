@@ -11,57 +11,52 @@ class TransacaoLista extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 400,
-      child: ListView.builder(
-        itemCount: transacao.length,
-        itemBuilder: (ctx, index) {
-          final tr = transacao[index];
-          return Card(
-            child: Row(
+      child: transacao.isEmpty
+          ? Column(
               children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 10,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.purple,
-                      width: 3,
-                    ),
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    'R\$ ${tr.valor}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.purple,
-                    ),
-                  ),
+                const Padding(padding: EdgeInsets.all(50)),
+                const Text(
+                  'Nenhuma Transação Cadastrada',
+                  style: TextStyle(fontSize: 30),
+                  textAlign: TextAlign.center,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr.titulo,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Text(
-                      DateFormat('dd MMM y').format(tr.data),
-                      style: const TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                )
+                const Padding(padding: EdgeInsets.all(25)),
+                Image.asset(
+                  'assets/imagens/wait.png',
+                  scale: 0.5,
+                ),
               ],
+            )
+          : ListView.builder(
+              itemCount: transacao.length,
+              itemBuilder: (ctx, index) {
+                final tr = transacao[index];
+                return Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Card(
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: const Color.fromARGB(255, 229, 22, 91),
+                        radius: 30,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: FittedBox(
+                            child: Text(
+                              'R\$${tr.valor}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      title: Text(tr.titulo),
+                      subtitle: Text(DateFormat('d MMM y').format(tr.data)),
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:despesas_pessoais/components/transacao_form.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'components/chart.dart';
 import 'components/transacao_lista.dart';
 import 'models/transacao.dart';
 
@@ -16,8 +17,10 @@ class GastosApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData tema = ThemeData();
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
       theme: tema.copyWith(
+        primaryColor: Colors.purple,
         textTheme: GoogleFonts.pacificoTextTheme(
           Theme.of(context).textTheme,
         ),
@@ -48,20 +51,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transacao = [
+  final List<Transacao> _transacao = [
+    Transacao(
+      id: 't0',
+      titulo: 'Conta Inválida',
+      valor: 31.75,
+      data: DateTime.now().subtract(const Duration(days: 33)),
+    ),
     Transacao(
       id: 't1',
       titulo: 'Novo Tenis de corrida',
       valor: 310.75,
-      data: DateTime.now(),
+      data: DateTime.now().subtract(const Duration(days: 3)),
     ),
     Transacao(
       id: 't2',
       titulo: 'Conta de Luz',
       valor: 210.56,
-      data: DateTime.now(),
+      data: DateTime.now().subtract(const Duration(days: 4)),
     ),
   ];
+
+  List<Transacao> get _transacaoRecente {
+    return _transacao.where(
+      (element) {
+        return element.data.isAfter(
+          DateTime.now().subtract(
+            const Duration(days: 7),
+          ),
+        );
+      },
+    ).toList();
+  }
 
   _addTransacao(String titulo, double valor) {
     final novaTransacao = Transacao(
@@ -104,14 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView(
         children: [
-          const SizedBox(
-            width: double.infinity,
-            child: Card(
-              child: Text('Gráfico'),
-              color: Colors.blue,
-              elevation: 5,
-            ),
-          ),
+          Chart(_transacaoRecente),
           TransacaoLista(transacao: _transacao),
         ],
       ),
