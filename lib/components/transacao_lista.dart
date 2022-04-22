@@ -3,9 +3,12 @@ import 'package:intl/intl.dart';
 import '../models/transacao.dart';
 
 class TransacaoLista extends StatelessWidget {
-  const TransacaoLista({Key? key, required this.transacao}) : super(key: key);
+  const TransacaoLista(
+      {Key? key, required this.transacao, required this.onRemove})
+      : super(key: key);
 
   final List<Transacao> transacao;
+  final void Function(String) onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +17,15 @@ class TransacaoLista extends StatelessWidget {
       child: transacao.isEmpty
           ? Column(
               children: [
-                const Padding(padding: EdgeInsets.all(50)),
                 const Text(
                   'Nenhuma Transação Cadastrada',
                   style: TextStyle(fontSize: 30),
                   textAlign: TextAlign.center,
                 ),
-                const Padding(padding: EdgeInsets.all(25)),
+                const Padding(padding: EdgeInsets.all(10)),
                 Image.asset(
                   'assets/imagens/wait.png',
-                  scale: 0.5,
+                  scale: 0.6,
                 ),
               ],
             )
@@ -52,6 +54,11 @@ class TransacaoLista extends StatelessWidget {
                       ),
                       title: Text(tr.titulo),
                       subtitle: Text(DateFormat('d MMM y').format(tr.data)),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete),
+                        color: Theme.of(context).errorColor,
+                        onPressed: () => onRemove(tr.id),
+                      ),
                     ),
                   ),
                 );

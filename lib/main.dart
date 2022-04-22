@@ -51,26 +51,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transacao> _transacao = [
-    Transacao(
-      id: 't0',
-      titulo: 'Conta Inválida',
-      valor: 31.75,
-      data: DateTime.now().subtract(const Duration(days: 33)),
-    ),
-    Transacao(
-      id: 't1',
-      titulo: 'Novo Tenis de corrida',
-      valor: 310.75,
-      data: DateTime.now().subtract(const Duration(days: 3)),
-    ),
-    Transacao(
-      id: 't2',
-      titulo: 'Conta de Luz',
-      valor: 210.56,
-      data: DateTime.now().subtract(const Duration(days: 4)),
-    ),
-  ];
+  final List<Transacao> _transacao = [];
 
   List<Transacao> get _transacaoRecente {
     return _transacao.where(
@@ -84,10 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
     ).toList();
   }
 
-  _addTransacao(String titulo, double valor) {
+  _addTransacao(String titulo, double valor, DateTime data) {
     final novaTransacao = Transacao(
       id: Random().nextDouble().toString(),
-      data: DateTime.now(),
+      data: data,
       titulo: titulo,
       valor: valor,
     );
@@ -97,6 +78,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     Navigator.of(context).pop();
+  }
+
+  _removerTransacao(String id) {
+    setState(() {
+      _transacao.removeWhere((element) => element.id == id);
+    });
   }
 
   _opentransactionFormModal(BuildContext context) {
@@ -126,7 +113,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView(
         children: [
           Chart(_transacaoRecente),
-          TransacaoLista(transacao: _transacao),
+          Expanded(
+            child: TransacaoLista(
+              transacao: _transacao,
+              onRemove: _removerTransacao,
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

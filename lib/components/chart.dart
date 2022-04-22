@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 class Chart extends StatelessWidget {
   final List<Transacao> transacaoRecente;
 
+  // ignore: use_key_in_widget_constructors
   const Chart(this.transacaoRecente, {Key? key});
 
   List<Map<String, dynamic>> get grupoTransacao {
@@ -53,7 +54,8 @@ class Chart extends StatelessWidget {
                 child: ChartBar(
                   label: e['dia'].toString(),
                   valor: e['valor'],
-                  porcentagem: ((e['valor']) / _weekTotalValue),
+                  porcentagem: ((e['valor']) /
+                      (_weekTotalValue == 0 ? 1 : _weekTotalValue)),
                 ),
               );
             }),
