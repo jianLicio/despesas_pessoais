@@ -52,6 +52,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transacao> _transacao = [];
+  bool _showChart = false;
 
   List<Transacao> get _transacaoRecente {
     return _transacao.where(
@@ -96,24 +97,65 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Despesas Pessoais',
-          style: TextStyle(fontSize: 25, color: Colors.white),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () => _opentransactionFormModal(context),
-            color: Colors.purple,
-          )
-        ],
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    final appBar = AppBar(
+      title: Text(
+        'Despesas Pessoais',
+        style: TextStyle(
+            fontSize: 25 * MediaQuery.of(context).textScaleFactor,
+            color: Colors.white),
       ),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: () => _opentransactionFormModal(context),
+          color: Colors.purple,
+        ),
+        if (isLandscape)
+          IconButton(
+            icon: Icon(_showChart ? Icons.list : Icons.show_chart),
+            onPressed: () {
+              setState(() {
+                _showChart = !_showChart;
+              });
+            },
+          )
+      ],
+    );
+
+    final alturaDisponivel = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
+    return Scaffold(
+      appBar: appBar,
       body: ListView(
         children: [
-          Chart(_transacaoRecente),
-          Expanded(
+          // if (isLandscape)
+          //   Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       const Text('Exibir Gráfico'),
+          //       Switch(
+          //         value: _showChart,
+          //         onChanged: (valor) {
+          //           setState(() {
+          //             _showChart = valor;
+          //           });
+          //         },
+          //       ),
+          //     ],
+          //   ),
+          if (_showChart || !isLandscape)
+            SizedBox(
+              height: alturaDisponivel * (isLandscape ? 0.7 : 0.27),
+              child: Chart(_transacaoRecente),
+            ),
+          // if (!_showChart || !isLandscape)
+          SizedBox(
+            height: alturaDisponivel * 0.75,
             child: TransacaoLista(
               transacao: _transacao,
               onRemove: _removerTransacao,

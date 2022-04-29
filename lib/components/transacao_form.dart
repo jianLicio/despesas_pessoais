@@ -45,59 +45,66 @@ class _TransacaoFormState extends State<TransacaoForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            TextField(
-              controller: _tituloController,
-              decoration: const InputDecoration(
-                labelText: 'Titulo',
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 10,
+            right: 10,
+            left: 10,
+            bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            children: [
+              TextField(
+                controller: _tituloController,
+                decoration: const InputDecoration(
+                  labelText: 'Titulo',
+                ),
               ),
-            ),
-            TextField(
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              onSubmitted: (valor) => _submitForm(),
-              controller: _valorController,
-              decoration: const InputDecoration(
-                labelText: 'Valor(R\$)',
+              TextField(
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                onSubmitted: (valor) => _submitForm(),
+                controller: _valorController,
+                decoration: const InputDecoration(
+                  labelText: 'Valor(R\$)',
+                ),
               ),
-            ),
-            SizedBox(
-              height: 70,
-              child: Row(
+              SizedBox(
+                height: 70,
+                child: Row(
+                  children: [
+                    Text(
+                      DateFormat('d/MM/y').format(_selectedDate),
+                    ),
+                    const Padding(padding: EdgeInsets.all(5)),
+                    TextButton(
+                      onPressed: _showDataPicker,
+                      child: const Text('Alterar Data'),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    DateFormat('d/MM/y').format(_selectedDate),
-                  ),
-                  const Padding(padding: EdgeInsets.all(5)),
                   TextButton(
-                    onPressed: _showDataPicker,
-                    child: const Text('Alterar Data'),
+                    style: TextButton.styleFrom(
+                      primary: Colors.purple,
+                      textStyle: const TextStyle(fontSize: 20),
+                    ),
+                    child: Text(
+                      'Nova Transação',
+                      style: GoogleFonts.acme(fontSize: 24),
+                    ),
+                    onPressed: _submitForm,
                   ),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  style: TextButton.styleFrom(
-                    primary: Colors.purple,
-                    textStyle: const TextStyle(fontSize: 20),
-                  ),
-                  child: Text(
-                    'Nova Transação',
-                    style: GoogleFonts.acme(fontSize: 24),
-                  ),
-                  onPressed: _submitForm,
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
