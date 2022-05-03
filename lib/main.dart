@@ -97,15 +97,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+    bool isLandscape = mediaQuery.orientation == Orientation.landscape;
 
     final appBar = AppBar(
       title: Text(
         'Despesas Pessoais',
         style: TextStyle(
-            fontSize: 25 * MediaQuery.of(context).textScaleFactor,
-            color: Colors.white),
+            fontSize: 25 * mediaQuery.textScaleFactor, color: Colors.white),
       ),
       actions: [
         IconButton(
@@ -125,29 +124,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
-    final alturaDisponivel = MediaQuery.of(context).size.height -
+    final alturaDisponivel = mediaQuery.size.height -
         appBar.preferredSize.height -
-        MediaQuery.of(context).padding.top;
+        mediaQuery.padding.top;
 
     return Scaffold(
       appBar: appBar,
       body: ListView(
         children: [
-          // if (isLandscape)
-          //   Row(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       const Text('Exibir Gráfico'),
-          //       Switch(
-          //         value: _showChart,
-          //         onChanged: (valor) {
-          //           setState(() {
-          //             _showChart = valor;
-          //           });
-          //         },
-          //       ),
-          //     ],
-          //   ),
           if (_showChart || !isLandscape)
             SizedBox(
               height: alturaDisponivel * (isLandscape ? 0.7 : 0.27),

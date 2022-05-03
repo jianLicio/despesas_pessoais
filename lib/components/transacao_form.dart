@@ -1,5 +1,5 @@
+import 'package:despesas_pessoais/components/adaptative_button.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class TransacaoForm extends StatefulWidget {
@@ -90,17 +90,19 @@ class _TransacaoFormState extends State<TransacaoForm> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      primary: Colors.purple,
-                      textStyle: const TextStyle(fontSize: 20),
-                    ),
-                    child: Text(
-                      'Nova Transação',
-                      style: GoogleFonts.acme(fontSize: 24),
-                    ),
-                    onPressed: _submitForm,
-                  ),
+                  AdaptativeButton(
+                      label: 'Salvar Transação', onPressed: _submitForm),
+                  // TextButton(
+                  //   style: TextButton.styleFrom(
+                  //     primary: Colors.purple,
+                  //     textStyle: const TextStyle(fontSize: 20),
+                  //   ),
+                  //   child: Text(
+                  //     'Nova Transação',
+                  //     style: GoogleFonts.acme(fontSize: 24),
+                  //   ),
+                  //   onPressed: _submitForm,
+                  // ),
                 ],
               ),
             ],

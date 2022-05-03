@@ -26,7 +26,6 @@ class Chart extends StatelessWidget {
           somaTotal += transacaoRecente[i].valor;
         }
       }
-      print(DateFormat.E().format(weekDay)[0]);
       return {
         'dia': DateFormat.E().format(weekDay)[0],
         'valor': somaTotal,
