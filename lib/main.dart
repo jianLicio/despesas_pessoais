@@ -43,7 +43,7 @@ class GastosApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatefulWidget with WidgetsBindingObserver {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
@@ -53,6 +53,23 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transacao> _transacao = [];
   bool _showChart = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // WidgetsBinding.instance!.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // WidgetsBinding.instance!.removeObserver(this);
+  }
 
   List<Transacao> get _transacaoRecente {
     return _transacao.where(

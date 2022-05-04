@@ -32,15 +32,24 @@ class TransacaoLista extends StatelessWidget {
               ],
             );
           })
-        : ListView.builder(
-            itemCount: transacao.length,
-            itemBuilder: (ctx, index) {
-              final tr = transacao[index];
-              return Padding(
-                padding: const EdgeInsets.all(5),
-                child: TransacaoItem(tr: tr, onRemove: onRemove),
+        : ListView(
+            children: transacao.map((tr) {
+              return TransacaoItem(
+                key: ValueKey(tr.id),
+                tr: tr,
+                onRemove: onRemove,
               );
-            },
+            }).toList(),
           );
+    // ListView.builder(
+    //     itemCount: transacao.length,
+    //     itemBuilder: (ctx, index) {
+    //       final tr = transacao[index];
+    //       return Padding(
+    //         padding: const EdgeInsets.all(5),
+    //         child: TransacaoItem(tr: tr, onRemove: onRemove),
+    //       );
+    //     },
+    //   );
   }
 }
