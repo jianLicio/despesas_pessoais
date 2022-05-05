@@ -1,5 +1,7 @@
 # Despesas Pessoais
 
+### Branch a ser utilizada: dev
+
 Projeto de aprendizado com objetivo de conhecer mais o flutter, desenvolvido com ajuda do curso da Udamy, com o professor Leonardo Moura Leitao.  
 
 [Leonardo Moura Leitao](https://www.udemy.com/user/leonardomouraleitao/)  
